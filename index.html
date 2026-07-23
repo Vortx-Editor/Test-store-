@@ -11,9 +11,9 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@300;400;500;600;700;800&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
 
-<!-- Bootstrap -->
+<!-- Bootstrap 5.3 -->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/css/bootstrap.min.css" rel="stylesheet">
-<!-- Font Awesome -->
+<!-- Font Awesome 6.5 -->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.2/css/all.min.css" rel="stylesheet">
 <!-- AOS -->
 <link href="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.1/aos.css" rel="stylesheet">
@@ -21,16 +21,6 @@
 <link href="https://cdnjs.cloudflare.com/ajax/libs/Swiper/11.0.5/swiper-bundle.min.css" rel="stylesheet">
 
 <style>
-/* ============================================================
-   NEXORA — DESIGN TOKENS
-   Color: --bg-void #08090D, --bg-panel #0F1117, --bg-panel-2 #14161F,
-          --line rgba(255,255,255,.08), --violet #8B5CF6, --cyan #22E1FF,
-          --pink #FF3D9A, --gold #FFB92E, --ink #F4F5F8, --ink-dim #9BA0AE
-   Type: Display = Space Grotesk, Body = Inter, Mono = JetBrains Mono
-   Signature: "Timeline scanline" — a glowing horizontal scan line motif
-   (borrowed from a video editor's playhead) sweeps through hero, cards
-   on hover, and section dividers.
-   ============================================================ */
 :root{
   --bg-void:#07080c;
   --bg-panel:#0e1016;
@@ -62,10 +52,10 @@ body{
   font-weight:400;
   overflow-x:hidden;
   position:relative;
-  cursor:default;
+  min-height:100vh;
 }
 ::selection{background:var(--violet);color:#fff;}
-::-webkit-scrollbar{width:10px;}
+::-webkit-scrollbar{width:8px;}
 ::-webkit-scrollbar-track{background:var(--bg-void);}
 ::-webkit-scrollbar-thumb{background:linear-gradient(var(--violet),var(--cyan));border-radius:10px;}
 
@@ -73,32 +63,10 @@ h1,h2,h3,h4,h5,h6{font-family:'Space Grotesk',sans-serif;font-weight:600;letter-
 .font-mono{font-family:'JetBrains Mono',monospace;}
 p{color:var(--ink-dim);line-height:1.7;}
 a{text-decoration:none;color:inherit;}
-button{font-family:inherit;}
-img{max-width:100%;display:block;}
 
-.container-xl{max-width:1360px;}
-
-/* ============ Focus visibility ============ */
-a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visible, select:focus-visible{
-  outline:2px solid var(--cyan);
-  outline-offset:3px;
-  border-radius:4px;
-}
-
-/* ============ reduced motion ============ */
-@media (prefers-reduced-motion: reduce){
-  *{animation-duration:.001ms !important;animation-iteration-count:1 !important;transition-duration:.001ms !important;scroll-behavior:auto !important;}
-}
-
-/* ============================================================
-   ANIMATED BACKGROUND
-   ============================================================ */
+/* Background Visuals */
 .bg-fx{
-  position:fixed;
-  inset:0;
-  z-index:0;
-  pointer-events:none;
-  overflow:hidden;
+  position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden;
   background:
     radial-gradient(ellipse 80% 60% at 15% -10%, rgba(139,92,246,.20), transparent 60%),
     radial-gradient(ellipse 70% 50% at 100% 10%, rgba(34,225,255,.14), transparent 60%),
@@ -106,703 +74,163 @@ a:focus-visible, button:focus-visible, input:focus-visible, textarea:focus-visib
     var(--bg-void);
 }
 .bg-fx::before{
-  content:"";
-  position:absolute;
-  inset:-2px;
-  background-image:
-    linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px);
+  content:"";position:absolute;inset:-2px;
+  background-image:linear-gradient(rgba(255,255,255,.025) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,.025) 1px, transparent 1px);
   background-size:52px 52px;
   mask-image:radial-gradient(ellipse 70% 60% at 50% 20%, black, transparent 75%);
 }
-.bg-noise{
-  position:fixed;inset:0;z-index:1;pointer-events:none;opacity:.035;mix-blend-mode:overlay;
-  background-image:url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.9' numOctaves='2' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E");
-}
-.blob{
-  position:absolute;
-  border-radius:50%;
-  filter:blur(90px);
-  opacity:.35;
-  will-change:transform;
-}
+.blob{position:absolute;border-radius:50%;filter:blur(90px);opacity:.35;will-change:transform;}
 .blob-1{width:520px;height:520px;background:var(--violet);top:-10%;left:-8%;animation:float1 22s ease-in-out infinite;}
 .blob-2{width:460px;height:460px;background:var(--cyan);top:30%;right:-10%;animation:float2 26s ease-in-out infinite;}
-.blob-3{width:380px;height:380px;background:var(--pink);bottom:-10%;left:30%;animation:float3 20s ease-in-out infinite;}
 @keyframes float1{0%,100%{transform:translate(0,0) scale(1);}50%{transform:translate(60px,80px) scale(1.15);}}
 @keyframes float2{0%,100%{transform:translate(0,0) scale(1);}50%{transform:translate(-70px,50px) scale(1.1);}}
-@keyframes float3{0%,100%{transform:translate(0,0) scale(1);}50%{transform:translate(40px,-60px) scale(1.2);}}
 
-/* scanline signature motif */
 .scanline{
   position:absolute;left:0;right:0;height:2px;
   background:linear-gradient(90deg, transparent, var(--cyan), var(--violet), transparent);
-  box-shadow:0 0 20px 2px rgba(34,225,255,.6);
-  opacity:.7;
+  box-shadow:0 0 20px 2px rgba(34,225,255,.6);opacity:.7;
 }
 
-/* mouse glow cursor-follow */
 .cursor-glow{
-  position:fixed;
-  width:420px;height:420px;
-  border-radius:50%;
-  background:radial-gradient(circle, rgba(139,92,246,.16), transparent 70%);
-  pointer-events:none;
-  z-index:2;
-  transform:translate(-50%,-50%);
-  transition:opacity .3s ease;
-  will-change:transform;
+  position:fixed;width:400px;height:400px;border-radius:50%;
+  background:radial-gradient(circle, rgba(139,92,246,.15), transparent 70%);
+  pointer-events:none;z-index:2;transform:translate(-50%,-50%);will-change:transform;
 }
 
-.page-content{position:relative;z-index:3;}
+.page-content{position:relative;z-index:3;min-height:calc(100vh - 200px);}
 
-/* ============================================================
-   LOADING SCREEN
-   ============================================================ */
+/* Loader */
 #loader{
-  position:fixed;inset:0;z-index:9999;
-  background:var(--bg-void);
+  position:fixed;inset:0;z-index:9999;background:var(--bg-void);
   display:flex;align-items:center;justify-content:center;flex-direction:column;
-  transition:opacity .7s var(--ease), visibility .7s var(--ease);
+  transition:opacity .6s var(--ease), visibility .6s var(--ease);
 }
 #loader.hide{opacity:0;visibility:hidden;pointer-events:none;}
-.loader-mark{
-  font-family:'Space Grotesk',sans-serif;
-  font-size:2.4rem;font-weight:700;letter-spacing:.02em;
-  background:linear-gradient(90deg,var(--violet),var(--cyan));
-  -webkit-background-clip:text;background-clip:text;color:transparent;
-  margin-bottom:22px;
-}
-.loader-bar{
-  width:220px;height:2px;background:rgba(255,255,255,.08);border-radius:2px;overflow:hidden;position:relative;
-}
-.loader-bar::after{
-  content:"";position:absolute;left:-40%;top:0;bottom:0;width:40%;
-  background:linear-gradient(90deg, transparent, var(--cyan), var(--violet), transparent);
-  animation:loaderSweep 1.1s ease-in-out infinite;
-}
+.loader-mark{font-family:'Space Grotesk',sans-serif;font-size:2.5rem;font-weight:700;background:linear-gradient(90deg,var(--violet),var(--cyan));-webkit-background-clip:text;background-clip:text;color:transparent;}
+.loader-bar{width:220px;height:2px;background:rgba(255,255,255,.08);border-radius:2px;overflow:hidden;position:relative;margin-top:15px;}
+.loader-bar::after{content:"";position:absolute;left:-40%;top:0;bottom:0;width:40%;background:linear-gradient(90deg, transparent, var(--cyan), var(--violet), transparent);animation:loaderSweep 1.1s ease-in-out infinite;}
 @keyframes loaderSweep{0%{left:-40%;}100%{left:100%;}}
-.loader-pct{margin-top:14px;font-family:'JetBrains Mono',monospace;font-size:.75rem;color:var(--ink-dimmer);letter-spacing:.1em;}
 
-/* ============================================================
-   TOP UTILITY BAR + NAVBAR
-   ============================================================ */
-.topbar{
-  background:var(--bg-panel);
-  border-bottom:1px solid var(--line-soft);
-  font-size:.78rem;
-  color:var(--ink-dimmer);
-  padding:6px 0;
-  position:relative;z-index:3;
-}
-.topbar a{color:var(--ink-dim);transition:color .2s;}
-.topbar a:hover{color:var(--cyan);}
-
-.navbar-nexora{
-  position:sticky;top:0;z-index:1000;
-  background:rgba(9,10,15,.72);
-  backdrop-filter:blur(18px) saturate(140%);
-  -webkit-backdrop-filter:blur(18px) saturate(140%);
-  border-bottom:1px solid var(--line);
-  transition:background .3s ease, box-shadow .3s ease;
-  padding:12px 0;
-}
-.navbar-nexora.scrolled{
-  background:rgba(7,8,12,.9);
-  box-shadow:0 10px 40px -18px rgba(0,0,0,.7);
-}
-.brand{
-  font-family:'Space Grotesk',sans-serif;
-  font-weight:700;
-  font-size:1.5rem;
-  letter-spacing:.01em;
-  display:flex;align-items:center;gap:9px;
-}
-.brand-mark{
-  width:34px;height:34px;border-radius:9px;
-  background:linear-gradient(135deg,var(--violet),var(--cyan));
-  display:flex;align-items:center;justify-content:center;
-  font-size:1.05rem;color:#050508;font-weight:700;
-  box-shadow:0 0 22px -4px rgba(139,92,246,.9);
-}
+/* Navbar & Topbar */
+.topbar{background:var(--bg-panel);border-bottom:1px solid var(--line-soft);font-size:.78rem;color:var(--ink-dimmer);padding:6px 0;position:relative;z-index:3;}
+.navbar-nexora{position:sticky;top:0;z-index:1000;background:rgba(9,10,15,.8);backdrop-filter:blur(18px);border-bottom:1px solid var(--line);padding:12px 0;}
+.brand{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:1.5rem;display:flex;align-items:center;gap:9px;}
+.brand-mark{width:34px;height:34px;border-radius:9px;background:linear-gradient(135deg,var(--violet),var(--cyan));display:flex;align-items:center;justify-content:center;font-size:1.05rem;color:#050508;font-weight:700;}
 .brand-text{background:linear-gradient(90deg,#fff,var(--ink-dim));-webkit-background-clip:text;background-clip:text;color:transparent;}
 
-.nav-link-nx{
-  color:var(--ink-dim) !important;
-  font-weight:500;
-  font-size:.92rem;
-  padding:8px 14px !important;
-  border-radius:8px;
-  position:relative;
-  transition:color .25s ease;
-}
+.nav-link-nx{color:var(--ink-dim) !important;font-weight:500;font-size:.92rem;padding:8px 12px !important;border-radius:8px;transition:color .25s ease;cursor:pointer;}
 .nav-link-nx:hover, .nav-link-nx.active{color:var(--ink) !important;}
-.nav-link-nx.active::after, .nav-link-nx:hover::after{
-  content:"";position:absolute;left:14px;right:14px;bottom:2px;height:2px;
-  background:linear-gradient(90deg,var(--violet),var(--cyan));border-radius:2px;
-}
-.nav-link-nx::after{content:"";position:absolute;left:14px;right:14px;bottom:2px;height:2px;background:transparent;}
 
-.dropdown-menu-nx{
-  background:rgba(15,17,23,.97);
-  backdrop-filter:blur(20px);
-  border:1px solid var(--line);
-  border-radius:var(--radius-md);
-  padding:10px;
-  box-shadow:0 24px 60px -20px rgba(0,0,0,.8);
-  min-width:230px;
-}
-.dropdown-menu-nx .dropdown-item{
-  color:var(--ink-dim);
-  border-radius:8px;
-  padding:9px 12px;
-  font-size:.88rem;
-  display:flex;align-items:center;gap:10px;
-  transition:.2s;
-}
-.dropdown-menu-nx .dropdown-item:hover{background:rgba(139,92,246,.14);color:var(--ink);}
-.dropdown-menu-nx .dropdown-item i{width:18px;color:var(--cyan);}
+.nav-icon-btn{width:40px;height:40px;border-radius:11px;background:rgba(255,255,255,.04);border:1px solid var(--line);display:flex;align-items:center;justify-content:center;color:var(--ink-dim);position:relative;transition:.25s;cursor:pointer;}
+.nav-icon-btn:hover{background:rgba(139,92,246,.14);border-color:rgba(139,92,246,.4);color:var(--ink);}
+.nav-badge{position:absolute;top:-5px;right:-5px;background:linear-gradient(135deg,var(--pink),var(--violet));color:#fff;font-size:.6rem;font-weight:700;width:18px;height:18px;border-radius:50%;display:flex;align-items:center;justify-content:center;}
 
-.nav-icon-btn{
-  width:40px;height:40px;border-radius:11px;
-  background:rgba(255,255,255,.04);
-  border:1px solid var(--line);
-  display:flex;align-items:center;justify-content:center;
-  color:var(--ink-dim);
-  position:relative;
-  transition:.25s var(--ease);
-}
-.nav-icon-btn:hover{background:rgba(139,92,246,.14);border-color:rgba(139,92,246,.4);color:var(--ink);transform:translateY(-2px);}
-.nav-badge{
-  position:absolute;top:-6px;right:-6px;
-  background:linear-gradient(135deg,var(--pink),var(--violet));
-  color:#fff;font-size:.62rem;font-weight:700;
-  width:18px;height:18px;border-radius:50%;
-  display:flex;align-items:center;justify-content:center;
-  box-shadow:0 0 10px rgba(255,61,154,.7);
-}
-
-/* ============================================================
-   BUTTONS — mirror / glass / neon
-   ============================================================ */
-.btn-nx{
-  font-family:'Space Grotesk',sans-serif;
-  font-weight:600;
-  font-size:.92rem;
-  padding:12px 26px;
-  border-radius:12px;
-  border:none;
-  cursor:pointer;
-  position:relative;
-  overflow:hidden;
-  display:inline-flex;align-items:center;justify-content:center;gap:8px;
-  transition:transform .3s var(--ease), box-shadow .3s var(--ease);
-  white-space:nowrap;
-}
+/* Buttons & Components */
+.btn-nx{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:.9rem;padding:11px 24px;border-radius:12px;border:none;cursor:pointer;display:inline-flex;align-items:center;justify-content:center;gap:8px;transition:transform .3s var(--ease), box-shadow .3s var(--ease);}
 .btn-nx:active{transform:scale(.96);}
+.btn-primary-nx{background:linear-gradient(135deg,var(--violet),var(--cyan));color:#07080c;box-shadow:0 8px 30px -8px rgba(139,92,246,.7);}
+.btn-primary-nx:hover{transform:translateY(-2px);box-shadow:0 12px 36px -6px rgba(139,92,246,.9);color:#07080c;}
+.btn-glass-nx{background:rgba(255,255,255,.05);border:1px solid var(--line);color:var(--ink);backdrop-filter:blur(10px);}
+.btn-glass-nx:hover{background:rgba(255,255,255,.09);color:var(--ink);}
+.btn-outline-nx{background:transparent;border:1.5px solid rgba(139,92,246,.5);color:var(--violet-2);}
+.btn-outline-nx:hover{background:rgba(139,92,246,.12);color:var(--ink);}
 
-.btn-primary-nx{
-  background:linear-gradient(135deg,var(--violet),var(--cyan));
-  color:#07080c;
-  box-shadow:0 8px 30px -8px rgba(139,92,246,.7);
-}
-.btn-primary-nx::before{
-  content:"";position:absolute;inset:0;
-  background:linear-gradient(120deg, transparent 30%, rgba(255,255,255,.55) 50%, transparent 70%);
-  transform:translateX(-120%);
-  transition:transform .7s ease;
-}
-.btn-primary-nx:hover::before{transform:translateX(120%);}
-.btn-primary-nx:hover{box-shadow:0 12px 36px -6px rgba(139,92,246,.9);transform:translateY(-3px);color:#07080c;}
+.glass-panel{background:rgba(255,255,255,.035);border:1px solid var(--line);backdrop-filter:blur(18px);border-radius:var(--radius-lg);}
+.section-pad{padding:80px 0;}
 
-.btn-glass-nx{
-  background:rgba(255,255,255,.05);
-  border:1px solid var(--line);
-  color:var(--ink);
-  backdrop-filter:blur(10px);
-}
-.btn-glass-nx:hover{background:rgba(255,255,255,.09);border-color:rgba(255,255,255,.2);transform:translateY(-3px);color:var(--ink);}
-
-.btn-mirror-nx{
-  background:linear-gradient(180deg, rgba(255,255,255,.12), rgba(255,255,255,.02));
-  border:1px solid rgba(255,255,255,.15);
-  color:var(--ink);
-  position:relative;
-}
-.btn-mirror-nx::after{
-  content:"";position:absolute;left:6%;right:6%;bottom:-14px;height:14px;
-  background:linear-gradient(180deg, rgba(255,255,255,.14), transparent);
-  filter:blur(3px);
-  opacity:.5;
-  transform:scaleY(-1);
-  border-radius:0 0 10px 10px;
-}
-.btn-mirror-nx:hover{background:linear-gradient(180deg, rgba(255,255,255,.18), rgba(255,255,255,.03));color:var(--ink);transform:translateY(-2px);}
-
-.btn-outline-nx{
-  background:transparent;
-  border:1.5px solid rgba(139,92,246,.5);
-  color:var(--violet-2);
-}
-.btn-outline-nx:hover{background:rgba(139,92,246,.12);color:var(--ink);border-color:var(--violet);}
-
-.btn-sm-nx{padding:9px 18px;font-size:.82rem;border-radius:10px;}
-.btn-icon-round{
-  width:44px;height:44px;border-radius:50%;padding:0;
-  display:flex;align-items:center;justify-content:center;
-  background:rgba(255,255,255,.05);border:1px solid var(--line);color:var(--ink);
-  transition:.25s;
-}
-.btn-icon-round:hover{background:var(--violet);color:#fff;transform:scale(1.08);}
-.btn-icon-round.active{background:linear-gradient(135deg,var(--pink),var(--violet));color:#fff;border-color:transparent;}
-
-/* ============================================================
-   GLASSMORPHISM PANELS / CARDS
-   ============================================================ */
-.glass-panel{
-  background:rgba(255,255,255,.035);
-  border:1px solid var(--line);
-  backdrop-filter:blur(18px) saturate(140%);
-  -webkit-backdrop-filter:blur(18px) saturate(140%);
-  border-radius:var(--radius-lg);
-}
-.section-pad{padding:100px 0;}
-@media(max-width:768px){.section-pad{padding:64px 0;}}
-
-.eyebrow{
-  display:inline-flex;align-items:center;gap:8px;
-  font-family:'JetBrains Mono',monospace;
-  font-size:.72rem;letter-spacing:.15em;text-transform:uppercase;
-  color:var(--cyan);
-  background:rgba(34,225,255,.08);
-  border:1px solid rgba(34,225,255,.25);
-  padding:6px 14px;border-radius:30px;
-  margin-bottom:18px;
-}
-.eyebrow::before{content:"";width:6px;height:6px;border-radius:50%;background:var(--cyan);box-shadow:0 0 8px var(--cyan);}
-
-.section-title{
-  font-size:clamp(1.8rem, 3.4vw, 2.7rem);
-  font-weight:700;
-  margin-bottom:14px;
-  line-height:1.15;
-}
-.section-title .grad{
-  background:linear-gradient(90deg,var(--violet-2),var(--cyan));
-  -webkit-background-clip:text;background-clip:text;color:transparent;
-}
-.section-sub{color:var(--ink-dim);font-size:1.02rem;max-width:600px;}
+.eyebrow{display:inline-flex;align-items:center;gap:8px;font-family:'JetBrains Mono',monospace;font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--cyan);background:rgba(34,225,255,.08);border:1px solid rgba(34,225,255,.25);padding:5px 12px;border-radius:30px;margin-bottom:16px;}
+.section-title{font-size:clamp(1.8rem, 3.4vw, 2.6rem);font-weight:700;margin-bottom:12px;}
+.section-title .grad{background:linear-gradient(90deg,var(--violet-2),var(--cyan));-webkit-background-clip:text;background-clip:text;color:transparent;}
 
 /* Product Card */
-.pcard{
-  background:linear-gradient(180deg, rgba(255,255,255,.045), rgba(255,255,255,.015));
-  border:1px solid var(--line);
-  border-radius:var(--radius-md);
-  overflow:hidden;
-  position:relative;
-  transition:transform .45s var(--ease), border-color .3s ease, box-shadow .45s var(--ease);
-  height:100%;
-  display:flex;flex-direction:column;
-}
-.pcard:hover{
-  transform:translateY(-8px);
-  border-color:rgba(139,92,246,.4);
-  box-shadow:0 24px 50px -18px rgba(139,92,246,.45);
-}
-.pcard-media{
-  position:relative;
-  aspect-ratio:16/10;
-  overflow:hidden;
-  background:#111319;
-}
-.pcard-media img{
-  width:100%;height:100%;object-fit:cover;
-  transition:transform .6s var(--ease), filter .4s ease;
-}
-.pcard:hover .pcard-media img{transform:scale(1.09);}
-.pcard-scan{
-  position:absolute;left:0;right:0;top:0;height:2px;
-  background:linear-gradient(90deg,transparent,var(--cyan),var(--violet),transparent);
-  opacity:0;
-  transform:translateY(0);
-  transition:opacity .3s ease;
-  box-shadow:0 0 12px var(--cyan);
-}
-.pcard:hover .pcard-scan{opacity:1;animation:scanmove 1.4s linear infinite;}
-@keyframes scanmove{0%{top:0;}100%{top:100%;}}
+.pcard{background:linear-gradient(180deg, rgba(255,255,255,.045), rgba(255,255,255,.015));border:1px solid var(--line);border-radius:var(--radius-md);overflow:hidden;position:relative;transition:transform .35s var(--ease), border-color .3s;height:100%;display:flex;flex-direction:column;}
+.pcard:hover{transform:translateY(-6px);border-color:rgba(139,92,246,.4);}
+.pcard-media{position:relative;aspect-ratio:16/10;overflow:hidden;background:#111319;}
+.pcard-media img{width:100%;height:100%;object-fit:cover;transition:transform .5s var(--ease);}
+.pcard:hover .pcard-media img{transform:scale(1.08);}
+.pcard-badge{position:absolute;top:10px;left:10px;font-family:'JetBrains Mono',monospace;font-size:.65rem;font-weight:600;padding:4px 8px;border-radius:6px;backdrop-filter:blur(6px);z-index:2;}
+.badge-hot{background:rgba(255,61,154,.2);color:var(--pink);border:1px solid rgba(255,61,154,.4);}
+.badge-new{background:rgba(34,225,255,.2);color:var(--cyan);border:1px solid rgba(34,225,255,.4);}
+.badge-free{background:rgba(51,227,154,.2);color:var(--green);border:1px solid rgba(51,227,154,.4);}
+.badge-sale{background:rgba(255,185,46,.2);color:var(--gold);border:1px solid rgba(255,185,46,.4);}
 
-.pcard-badge{
-  position:absolute;top:12px;left:12px;
-  font-family:'JetBrains Mono',monospace;
-  font-size:.66rem;font-weight:600;letter-spacing:.05em;text-transform:uppercase;
-  padding:5px 10px;border-radius:6px;
-  backdrop-filter:blur(6px);
-  z-index:2;
-}
-.badge-new{background:rgba(34,225,255,.18);color:var(--cyan);border:1px solid rgba(34,225,255,.4);}
-.badge-hot{background:rgba(255,61,154,.18);color:var(--pink);border:1px solid rgba(255,61,154,.4);}
-.badge-free{background:rgba(51,227,154,.18);color:var(--green);border:1px solid rgba(51,227,154,.4);}
-.badge-sale{background:rgba(255,185,46,.18);color:var(--gold);border:1px solid rgba(255,185,46,.4);}
-
-.pcard-fav{
-  position:absolute;top:12px;right:12px;z-index:2;
-  width:34px;height:34px;border-radius:50%;
-  background:rgba(10,11,16,.6);
-  backdrop-filter:blur(6px);
-  border:1px solid rgba(255,255,255,.15);
-  display:flex;align-items:center;justify-content:center;
-  color:#fff;font-size:.85rem;
-  transition:.25s;
-}
+.pcard-fav{position:absolute;top:10px;right:10px;z-index:2;width:32px;height:32px;border-radius:50%;background:rgba(10,11,16,.6);border:1px solid rgba(255,255,255,.15);display:flex;align-items:center;justify-content:center;color:#fff;cursor:pointer;transition:.2s;}
 .pcard-fav:hover, .pcard-fav.active{background:var(--pink);border-color:var(--pink);}
-.pcard-fav.active i{font-weight:900;}
 
-.pcard-overlay-actions{
-  position:absolute;inset:0;
-  display:flex;align-items:center;justify-content:center;gap:10px;
-  background:linear-gradient(180deg, rgba(7,8,12,.15), rgba(7,8,12,.75));
-  opacity:0;
-  transition:opacity .35s ease;
-  z-index:1;
-}
-.pcard:hover .pcard-overlay-actions{opacity:1;}
-.pcard-quick-btn{
-  width:42px;height:42px;border-radius:50%;
-  background:rgba(255,255,255,.12);
-  backdrop-filter:blur(8px);
-  border:1px solid rgba(255,255,255,.25);
-  color:#fff;
-  display:flex;align-items:center;justify-content:center;
-  transform:translateY(14px);
-  opacity:0;
-  transition:transform .4s var(--ease), opacity .4s ease, background .2s;
-}
-.pcard:hover .pcard-quick-btn{transform:translateY(0);opacity:1;}
-.pcard:hover .pcard-quick-btn:nth-child(1){transition-delay:.03s;}
-.pcard:hover .pcard-quick-btn:nth-child(2){transition-delay:.09s;}
-.pcard:hover .pcard-quick-btn:nth-child(3){transition-delay:.15s;}
-.pcard-quick-btn:hover{background:var(--violet);border-color:var(--violet);}
-
-.pcard-body{padding:16px 18px 18px;display:flex;flex-direction:column;gap:8px;flex:1;}
-.pcard-cat{font-family:'JetBrains Mono',monospace;font-size:.68rem;letter-spacing:.08em;text-transform:uppercase;color:var(--ink-dimmer);}
-.pcard-title{font-size:1rem;font-weight:600;color:var(--ink);line-height:1.35;}
-.pcard-stars{color:var(--gold);font-size:.76rem;display:flex;align-items:center;gap:5px;}
-.pcard-stars span{color:var(--ink-dimmer);font-family:'JetBrains Mono',monospace;}
+.pcard-body{padding:16px;display:flex;flex-direction:column;gap:6px;flex:1;}
+.pcard-cat{font-family:'JetBrains Mono',monospace;font-size:.68rem;color:var(--ink-dimmer);text-transform:uppercase;}
+.pcard-title{font-size:.95rem;font-weight:600;color:var(--ink);cursor:pointer;}
+.pcard-title:hover{color:var(--cyan);}
 .pcard-foot{display:flex;align-items:center;justify-content:space-between;margin-top:auto;padding-top:10px;border-top:1px solid var(--line-soft);}
-.pcard-price{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:1.08rem;color:var(--ink);}
-.pcard-price .old{font-size:.78rem;color:var(--ink-dimmer);text-decoration:line-through;font-weight:400;margin-right:6px;}
-.pcard-price .free{color:var(--green);}
-.pcard-cart-btn{
-  width:38px;height:38px;border-radius:10px;
-  background:rgba(139,92,246,.14);
-  border:1px solid rgba(139,92,246,.3);
-  color:var(--violet-2);
-  display:flex;align-items:center;justify-content:center;
-  transition:.25s;
-}
+.pcard-price{font-family:'Space Grotesk',sans-serif;font-weight:700;font-size:1.05rem;}
+.pcard-price .old{font-size:.78rem;color:var(--ink-dimmer);text-decoration:line-through;margin-right:4px;}
+
+.pcard-cart-btn{width:36px;height:36px;border-radius:9px;background:rgba(139,92,246,.14);border:1px solid rgba(139,92,246,.3);color:var(--violet-2);display:flex;align-items:center;justify-content:center;cursor:pointer;transition:.2s;}
 .pcard-cart-btn:hover{background:var(--violet);color:#fff;}
 
-/* Category Card */
-.cat-card{
-  border-radius:var(--radius-md);
-  padding:26px 20px;
-  background:linear-gradient(150deg, rgba(255,255,255,.05), rgba(255,255,255,.015));
-  border:1px solid var(--line);
-  text-align:center;
-  transition:.4s var(--ease);
-  cursor:pointer;
-  height:100%;
-}
-.cat-card:hover{
-  transform:translateY(-6px) scale(1.02);
-  border-color:rgba(34,225,255,.4);
-  background:linear-gradient(150deg, rgba(34,225,255,.09), rgba(139,92,246,.05));
-  box-shadow:0 20px 44px -20px rgba(34,225,255,.35);
-}
-.cat-icon{
-  width:58px;height:58px;border-radius:16px;
-  margin:0 auto 16px;
-  display:flex;align-items:center;justify-content:center;
-  font-size:1.4rem;
-  background:linear-gradient(135deg, rgba(139,92,246,.25), rgba(34,225,255,.18));
-  color:var(--cyan);
-  transition:.4s var(--ease);
-}
-.cat-card:hover .cat-icon{transform:rotate(-8deg) scale(1.12);color:#fff;background:linear-gradient(135deg,var(--violet),var(--cyan));}
-.cat-name{font-weight:600;font-size:.95rem;margin-bottom:4px;}
-.cat-count{font-size:.76rem;color:var(--ink-dimmer);font-family:'JetBrains Mono',monospace;}
+/* Category Cards & Reviews */
+.cat-card{border-radius:var(--radius-md);padding:20px 16px;background:rgba(255,255,255,.03);border:1px solid var(--line);text-align:center;transition:.3s;cursor:pointer;}
+.cat-card:hover{transform:translateY(-4px);border-color:var(--cyan);background:rgba(34,225,255,.05);}
+.cat-icon{width:48px;height:48px;border-radius:12px;margin:0 auto 12px;display:flex;align-items:center;justify-content:center;font-size:1.2rem;background:rgba(139,92,246,.15);color:var(--cyan);}
 
-/* Stat Counter */
-.stat-box{text-align:center;padding:20px;}
-.stat-num{
-  font-family:'Space Grotesk',sans-serif;
-  font-size:clamp(2.2rem,4vw,3.2rem);
-  font-weight:700;
-  background:linear-gradient(135deg,#fff,var(--cyan));
-  -webkit-background-clip:text;background-clip:text;color:transparent;
-  line-height:1;
-}
-.stat-label{color:var(--ink-dimmer);font-size:.85rem;margin-top:10px;letter-spacing:.03em;text-transform:uppercase;font-family:'JetBrains Mono',monospace;}
+.review-card{background:rgba(255,255,255,.03);border:1px solid var(--line);border-radius:var(--radius-md);padding:24px;}
 
-/* Review Card */
-.review-card{
-  background:linear-gradient(180deg, rgba(255,255,255,.045), rgba(255,255,255,.015));
-  border:1px solid var(--line);
-  border-radius:var(--radius-md);
-  padding:28px;
-  height:100%;
-}
-.review-stars{color:var(--gold);font-size:.85rem;margin-bottom:14px;}
-.review-avatar{width:46px;height:46px;border-radius:50%;object-fit:cover;border:2px solid rgba(139,92,246,.4);}
+/* SPA Views Handling */
+.page-view{display:none;}
+.page-view.active{display:block;animation:fadeIn .4s var(--ease);}
+@keyframes fadeIn{from{opacity:0;transform:translateY(10px);}to{opacity:1;transform:translateY(0);}}
 
-/* Section divider scanline */
-.divider-scan{
-  height:1px;
-  background:linear-gradient(90deg, transparent, var(--line), transparent);
-  position:relative;
-  margin:0;
-}
-.divider-scan .dot{
-  position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);
-  width:8px;height:8px;border-radius:50%;
-  background:var(--cyan);box-shadow:0 0 20px 4px var(--cyan);
-}
+/* Toast Notifications */
+.nx-toast-wrap{position:fixed;bottom:24px;right:24px;z-index:9998;display:flex;flex-direction:column;gap:10px;}
+.nx-toast{background:rgba(15,17,23,.95);border:1px solid var(--line);border-left:4px solid var(--cyan);backdrop-filter:blur(16px);border-radius:10px;padding:12px 18px;min-width:260px;display:flex;align-items:center;gap:12px;box-shadow:0 10px 30px rgba(0,0,0,.5);animation:toastIn .3s var(--ease);}
+@keyframes toastIn{from{transform:translateX(100%);}to{transform:translateX(0);}}
 
-/* Floating badges for hero */
-.float-card{
-  position:absolute;
-  padding:14px 16px;
-  border-radius:14px;
-  background:rgba(15,17,23,.75);
-  backdrop-filter:blur(16px);
-  border:1px solid var(--line);
-  box-shadow:0 20px 50px -20px rgba(0,0,0,.7);
-  animation:floaty 5s ease-in-out infinite;
-  z-index:4;
-}
-@keyframes floaty{0%,100%{transform:translateY(0);}50%{transform:translateY(-14px);}}
-
-/* Newsletter */
-.newsletter-box{
-  border-radius:28px;
-  padding:60px;
-  background:
-    radial-gradient(circle at 20% 20%, rgba(139,92,246,.25), transparent 55%),
-    radial-gradient(circle at 80% 80%, rgba(34,225,255,.2), transparent 55%),
-    linear-gradient(180deg, rgba(255,255,255,.04), rgba(255,255,255,.01));
-  border:1px solid var(--line);
-  text-align:center;
-  position:relative;
-  overflow:hidden;
-}
-@media(max-width:768px){.newsletter-box{padding:36px 22px;}}
-.form-control-nx{
-  background:rgba(255,255,255,.05);
-  border:1px solid var(--line);
-  color:var(--ink);
-  border-radius:12px;
-  padding:13px 18px;
-  font-size:.92rem;
-}
-.form-control-nx:focus{
-  background:rgba(255,255,255,.07);
-  border-color:var(--violet);
-  color:var(--ink);
-  box-shadow:0 0 0 3px rgba(139,92,246,.2);
-}
-.form-control-nx::placeholder{color:var(--ink-dimmer);}
-
-/* FAQ Accordion */
-.faq-item{
-  border:1px solid var(--line);
-  border-radius:var(--radius-md);
-  margin-bottom:12px;
-  overflow:hidden;
-  background:rgba(255,255,255,.03);
-  transition:border-color .3s;
-}
-.faq-item.open{border-color:rgba(139,92,246,.4);}
-.faq-q{
-  padding:20px 24px;
-  display:flex;align-items:center;justify-content:space-between;
-  cursor:pointer;
-  font-weight:600;
-  font-family:'Space Grotesk',sans-serif;
-}
-.faq-q i{transition:transform .35s var(--ease);color:var(--violet-2);}
-.faq-item.open .faq-q i{transform:rotate(45deg);}
-.faq-a{
-  max-height:0;
-  overflow:hidden;
-  transition:max-height .4s var(--ease), padding .4s var(--ease);
-  padding:0 24px;
-}
-.faq-item.open .faq-a{max-height:300px;padding:0 24px 22px;}
+/* Inputs */
+.form-control-nx{background:rgba(255,255,255,.05);border:1px solid var(--line);color:var(--ink);border-radius:10px;padding:10px 14px;font-size:.9rem;width:100%;}
+.form-control-nx:focus{outline:none;border-color:var(--violet);box-shadow:0 0 0 2px rgba(139,92,246,.2);}
 
 /* Footer */
-.footer-nx{
-  background:var(--bg-panel);
-  border-top:1px solid var(--line);
-  padding:70px 0 24px;
-  position:relative;
-}
-.footer-heading{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:.95rem;margin-bottom:18px;letter-spacing:.02em;}
-.footer-link{color:var(--ink-dim);font-size:.88rem;display:block;padding:6px 0;transition:.2s;}
-.footer-link:hover{color:var(--cyan);transform:translateX(4px);}
-.social-icon{
-  width:38px;height:38px;border-radius:10px;
-  background:rgba(255,255,255,.04);border:1px solid var(--line);
-  display:flex;align-items:center;justify-content:center;
-  color:var(--ink-dim);transition:.25s;
-}
-.social-icon:hover{background:var(--violet);color:#fff;transform:translateY(-3px);}
+.footer-nx{background:var(--bg-panel);border-top:1px solid var(--line);padding:60px 0 24px;margin-top:80px;}
+.footer-link{color:var(--ink-dim);font-size:.85rem;display:block;padding:4px 0;transition:.2s;cursor:pointer;}
+.footer-link:hover{color:var(--cyan);transform:translateX(3px);}
 
-/* Toast */
-.nx-toast-wrap{position:fixed;top:90px;right:20px;z-index:9998;display:flex;flex-direction:column;gap:10px;}
-.nx-toast{
-  background:rgba(15,17,23,.95);
-  border:1px solid var(--line);
-  border-left:3px solid var(--cyan);
-  backdrop-filter:blur(16px);
-  border-radius:12px;
-  padding:14px 18px;
-  min-width:270px;
-  display:flex;align-items:center;gap:12px;
-  box-shadow:0 20px 50px -18px rgba(0,0,0,.8);
-  transform:translateX(120%);
-  transition:transform .45s var(--ease);
-  font-size:.87rem;
-}
-.nx-toast.show{transform:translateX(0);}
-.nx-toast i{color:var(--cyan);font-size:1.1rem;}
-.nx-toast.err{border-left-color:var(--pink);}
-.nx-toast.err i{color:var(--pink);}
-
-/* Breadcrumb / page header */
-.page-hero{
-  padding:130px 0 50px;
-  background:
-    radial-gradient(ellipse 60% 60% at 50% 0%, rgba(139,92,246,.18), transparent 65%);
-  border-bottom:1px solid var(--line);
-}
-.breadcrumb-nx{font-family:'JetBrains Mono',monospace;font-size:.78rem;color:var(--ink-dimmer);}
-.breadcrumb-nx a{color:var(--ink-dim);}
-.breadcrumb-nx a:hover{color:var(--cyan);}
-
-/* Star rating input display */
-.star-rate{color:var(--gold);letter-spacing:2px;}
-
-/* Filters sidebar */
-.filter-block{border-bottom:1px solid var(--line-soft);padding-bottom:20px;margin-bottom:20px;}
-.filter-block:last-child{border-bottom:none;}
-.filter-title{font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:.95rem;margin-bottom:14px;}
-.form-check-nx .form-check-input{background-color:rgba(255,255,255,.06);border-color:var(--line);}
-.form-check-nx .form-check-input:checked{background-color:var(--violet);border-color:var(--violet);}
-.form-check-nx label{color:var(--ink-dim);font-size:.88rem;}
-
-.price-range-nx{width:100%;accent-color:var(--violet);}
-
-/* Table cart */
-.cart-row{border-bottom:1px solid var(--line-soft);padding:18px 0;display:flex;align-items:center;gap:18px;}
-.cart-thumb{width:88px;height:60px;border-radius:8px;object-fit:cover;flex-shrink:0;}
-.qty-box{display:flex;align-items:center;border:1px solid var(--line);border-radius:8px;overflow:hidden;}
-.qty-box button{width:30px;height:30px;background:rgba(255,255,255,.04);border:none;color:var(--ink);}
-.qty-box input{width:38px;text-align:center;background:transparent;border:none;color:var(--ink);}
-
-/* auth card */
-.auth-card{max-width:440px;margin:0 auto;padding:44px;}
-.auth-tab{flex:1;text-align:center;padding:12px;font-weight:600;color:var(--ink-dimmer);cursor:pointer;border-bottom:2px solid transparent;font-family:'Space Grotesk',sans-serif;}
-.auth-tab.active{color:var(--ink);border-color:var(--violet);}
-
-/* dashboard */
-.dash-sidebar{border-radius:var(--radius-md);padding:20px;position:sticky;top:100px;}
-.dash-link{display:flex;align-items:center;gap:12px;padding:11px 14px;border-radius:10px;color:var(--ink-dim);font-size:.9rem;font-weight:500;margin-bottom:4px;transition:.2s;}
-.dash-link:hover{background:rgba(255,255,255,.05);color:var(--ink);}
-.dash-link.active{background:linear-gradient(90deg, rgba(139,92,246,.2), rgba(34,225,255,.06));color:var(--ink);border:1px solid rgba(139,92,246,.3);}
-.dash-link i{width:18px;color:var(--cyan);}
-
-/* progress ring / misc */
-.badge-pill-nx{background:rgba(139,92,246,.15);color:var(--violet-2);border:1px solid rgba(139,92,246,.3);padding:4px 12px;border-radius:20px;font-size:.72rem;font-weight:600;}
-
-/* page transition */
-.page-view{display:none;}
-.page-view.active{display:block;animation:pageIn .5s var(--ease);}
-@keyframes pageIn{from{opacity:0;transform:translateY(14px);}to{opacity:1;transform:translateY(0);}}
-
-/* Back to top */
-.back-top{
-  position:fixed;bottom:26px;right:26px;z-index:900;
-  width:48px;height:48px;border-radius:50%;
-  background:linear-gradient(135deg,var(--violet),var(--cyan));
-  color:#07080c;
-  display:flex;align-items:center;justify-content:center;
-  border:none;
-  opacity:0;visibility:hidden;transform:translateY(20px);
-  transition:.35s var(--ease);
-  box-shadow:0 10px 30px -8px rgba(139,92,246,.7);
-}
-.back-top.show{opacity:1;visibility:visible;transform:translateY(0);}
-
-.empty-state{text-align:center;padding:70px 20px;}
-.empty-state i{font-size:3rem;color:var(--ink-dimmer);margin-bottom:20px;}
-
-.swiper-button-next, .swiper-button-prev{color:var(--cyan) !important;background:rgba(15,17,23,.7);width:44px !important;height:44px !important;border-radius:50%;border:1px solid var(--line);backdrop-filter:blur(10px);}
-.swiper-button-next::after, .swiper-button-prev::after{font-size:1rem !important;}
-.swiper-pagination-bullet{background:var(--ink-dimmer) !important;opacity:.5;}
-.swiper-pagination-bullet-active{background:var(--cyan) !important;opacity:1;}
-
-.badge-tag{display:inline-block;padding:5px 12px;border-radius:8px;background:rgba(255,255,255,.05);border:1px solid var(--line);font-size:.76rem;color:var(--ink-dim);margin:0 6px 6px 0;font-family:'JetBrains Mono',monospace;}
-
-hr.hr-nx{border-color:var(--line-soft);}
-
-.trust-badge{display:flex;align-items:center;gap:10px;padding:14px 18px;border-radius:12px;background:rgba(255,255,255,.03);border:1px solid var(--line);}
-.trust-badge i{font-size:1.3rem;color:var(--cyan);}
-
-@media(max-width:991px){
-  .navbar-collapse{background:rgba(10,11,16,.98);backdrop-filter:blur(20px);border-radius:16px;padding:16px;margin-top:12px;border:1px solid var(--line);}
-}
+/* Table / Cart */
+.cart-table img{width:60px;height:40px;object-fit:cover;border-radius:6px;}
 </style>
 </head>
 <body>
 
-<!-- ============ LOADING SCREEN ============ -->
+<!-- Loader -->
 <div id="loader">
   <div class="loader-mark">NEXORA</div>
   <div class="loader-bar"></div>
-  <div class="loader-pct" id="loaderPct">LOADING ASSETS — 0%</div>
+  <div class="loader-pct font-mono text-muted mt-2 fs-7" id="loaderPct">LOADING ASSETS — 0%</div>
 </div>
 
-<!-- ============ ANIMATED BACKGROUND ============ -->
+<!-- Background Elements -->
 <div class="bg-fx">
   <div class="blob blob-1"></div>
   <div class="blob blob-2"></div>
-  <div class="blob blob-3"></div>
 </div>
-<div class="bg-noise"></div>
 <div class="cursor-glow" id="cursorGlow"></div>
-
-<!-- ============ TOAST CONTAINER ============ -->
 <div class="nx-toast-wrap" id="toastWrap"></div>
 
-<!-- ============ TOP UTILITY BAR ============ -->
+<!-- Topbar -->
 <div class="topbar d-none d-md-block">
   <div class="container-xl d-flex justify-content-between align-items-center">
-    <div class="d-flex gap-4">
-      <span><i class="fa-solid fa-bolt me-1" style="color:var(--gold)"></i> Summer Sale — Up to 40% off Premium Bundles</span>
-    </div>
-    <div class="d-flex gap-4">
-      <a href="#" data-nav="support"><i class="fa-solid fa-headset me-1"></i> Support</a>
-      <a href="#" data-nav="about">About</a>
-      <a href="#" data-nav="contact">Contact</a>
-      <span><i class="fa-solid fa-globe me-1"></i> EN / USD</span>
+    <div><i class="fa-solid fa-bolt me-1 text-warning"></i> Summer Sale — Up to 50% off Premium Assets</div>
+    <div class="d-flex gap-3">
+      <a onclick="navigateTo('support')" class="footer-link d-inline">Support</a>
+      <a onclick="navigateTo('about')" class="footer-link d-inline">About</a>
+      <a onclick="navigateTo('contact')" class="footer-link d-inline">Contact</a>
     </div>
   </div>
 </div>
 
-<!-- ============ NAVBAR ============ -->
-<nav class="navbar navbar-expand-lg navbar-nexora" id="mainNavbar">
+<!-- Navigation -->
+<nav class="navbar navbar-expand-lg navbar-nexora">
   <div class="container-xl">
-    <a class="brand" href="#" data-nav="home">
+    <a class="brand" onclick="navigateTo('home')">
       <span class="brand-mark">N</span>
       <span class="brand-text">NEXORA</span>
     </a>
@@ -811,311 +239,639 @@ hr.hr-nx{border-color:var(--line-soft);}
     </button>
     <div class="collapse navbar-collapse" id="navMain">
       <ul class="navbar-nav mx-auto align-items-lg-center gap-lg-1">
-        <li class="nav-item"><a class="nav-link nav-link-nx active" href="#" data-nav="home">Home</a></li>
-        <li class="nav-item"><a class="nav-link nav-link-nx" href="#" data-nav="store">Store</a></li>
-        <li class="nav-item dropdown">
-          <a class="nav-link nav-link-nx dropdown-toggle" href="#" data-bs-toggle="dropdown">Categories</a>
-          <ul class="dropdown-menu dropdown-menu-nx">
-            <li><a class="dropdown-item" href="#" data-nav="store" data-cat="After Effects"><i class="fa-solid fa-clapperboard"></i> After Effects Templates</a></li>
-            <li><a class="dropdown-item" href="#" data-nav="store" data-cat="Alight Motion"><i class="fa-solid fa-mobile-screen"></i> Alight Motion Projects</a></li>
-            <li><a class="dropdown-item" href="#" data-nav="store" data-cat="Presets"><i class="fa-solid fa-sliders"></i> Presets</a></li>
-            <li><a class="dropdown-item" href="#" data-nav="store" data-cat="LUTs"><i class="fa-solid fa-palette"></i> LUTs</a></li>
-            <li><a class="dropdown-item" href="#" data-nav="store" data-cat="Transition Packs"><i class="fa-solid fa-shuffle"></i> Transition Packs</a></li>
-            <li><a class="dropdown-item" href="#" data-nav="store" data-cat="Sound Effects"><i class="fa-solid fa-volume-high"></i> Sound Effects</a></li>
-            <li><hr class="dropdown-divider" style="border-color:var(--line)"></li>
-            <li><a class="dropdown-item" href="#" data-nav="store"><i class="fa-solid fa-grip"></i> View All Categories</a></li>
-          </ul>
-        </li>
-        <li class="nav-item"><a class="nav-link nav-link-nx" href="#" data-nav="store" data-cat="After Effects">After Effects</a></li>
-        <li class="nav-item"><a class="nav-link nav-link-nx" href="#" data-nav="store" data-cat="Alight Motion">Alight Motion</a></li>
-        <li class="nav-item"><a class="nav-link nav-link-nx" href="#" data-nav="bundles">Bundles</a></li>
-        <li class="nav-item"><a class="nav-link nav-link-nx" href="#" data-nav="store" data-cat="Free Downloads">Free</a></li>
+        <li class="nav-item"><a class="nav-link nav-link-nx" onclick="navigateTo('home')">Home</a></li>
+        <li class="nav-item"><a class="nav-link nav-link-nx" onclick="navigateTo('store')">Store</a></li>
+        <li class="nav-item"><a class="nav-link nav-link-nx" onclick="navigateTo('store', {cat:'After Effects'})">After Effects</a></li>
+        <li class="nav-item"><a class="nav-link nav-link-nx" onclick="navigateTo('store', {cat:'Alight Motion'})">Alight Motion</a></li>
+        <li class="nav-item"><a class="nav-link nav-link-nx" onclick="navigateTo('bundles')">Bundles</a></li>
+        <li class="nav-item"><a class="nav-link nav-link-nx" onclick="navigateTo('store', {cat:'Free Downloads'})">Free</a></li>
       </ul>
 
-      <form class="d-none d-lg-flex align-items-center position-relative me-3" style="width:230px;" onsubmit="return false;">
-        <i class="fa-solid fa-magnifying-glass position-absolute" style="left:14px;color:var(--ink-dimmer);font-size:.82rem;"></i>
-        <input type="text" id="navSearchInput" class="form-control-nx w-100" style="padding-left:36px;font-size:.85rem;" placeholder="Search assets...">
-        <div class="glass-panel position-absolute w-100" id="navSearchResults" style="top:46px;z-index:1500;display:none;max-height:360px;overflow-y:auto;padding:8px;"></div>
-      </form>
-
       <div class="d-flex align-items-center gap-2">
-        <button class="nav-icon-btn d-lg-none" onclick="toggleMobileSearch()"><i class="fa-solid fa-magnifying-glass"></i></button>
-        <button class="nav-icon-btn" data-nav="wishlist" title="Wishlist">
+        <div class="position-relative d-none d-lg-block me-2" style="width:200px;">
+          <input type="text" id="navSearch" class="form-control-nx" style="padding-left:32px;" placeholder="Search assets..." onkeyup="handleSearch(this.value)">
+          <i class="fa-solid fa-magnifying-glass position-absolute" style="left:10px;top:12px;color:var(--ink-dimmer);font-size:.8rem;"></i>
+        </div>
+        <button class="nav-icon-btn" onclick="navigateTo('wishlist')" title="Wishlist">
           <i class="fa-regular fa-heart"></i>
-          <span class="nav-badge" id="wishBadge">0</span>
+          <span class="nav-badge" id="wishCount">0</span>
         </button>
-        <button class="nav-icon-btn" data-nav="cart" title="Cart">
+        <button class="nav-icon-btn" onclick="navigateTo('cart')" title="Cart">
           <i class="fa-solid fa-bag-shopping"></i>
-          <span class="nav-badge" id="cartBadge">0</span>
+          <span class="nav-badge" id="cartCount">0</span>
         </button>
         <div class="dropdown">
-          <button class="nav-icon-btn dropdown-toggle" data-bs-toggle="dropdown" style="padding:0;">
-            <i class="fa-regular fa-user"></i>
-          </button>
-          <ul class="dropdown-menu dropdown-menu-nx dropdown-menu-end">
-            <li><a class="dropdown-item" href="#" data-nav="login"><i class="fa-solid fa-right-to-bracket"></i> Login</a></li>
-            <li><a class="dropdown-item" href="#" data-nav="register"><i class="fa-solid fa-user-plus"></i> Register</a></li>
-            <li><hr class="dropdown-divider" style="border-color:var(--line)"></li>
-            <li><a class="dropdown-item" href="#" data-nav="dashboard"><i class="fa-solid fa-gauge"></i> Dashboard</a></li>
-            <li><a class="dropdown-item" href="#" data-nav="downloads"><i class="fa-solid fa-download"></i> Downloads</a></li>
-            <li><a class="dropdown-item" href="#" data-nav="purchases"><i class="fa-solid fa-receipt"></i> Purchase History</a></li>
-            <li><a class="dropdown-item" href="#" data-nav="favorites"><i class="fa-solid fa-heart"></i> Favorites</a></li>
-            <li><a class="dropdown-item" href="#" data-nav="profile"><i class="fa-solid fa-id-badge"></i> Profile</a></li>
+          <button class="nav-icon-btn" data-bs-toggle="dropdown"><i class="fa-regular fa-user"></i></button>
+          <ul class="dropdown-menu dropdown-menu-dark dropdown-menu-end">
+            <li><a class="dropdown-item" onclick="navigateTo('dashboard')"><i class="fa-solid fa-gauge me-2"></i>Dashboard</a></li>
+            <li><a class="dropdown-item" onclick="navigateTo('downloads')"><i class="fa-solid fa-download me-2"></i>Downloads</a></li>
+            <li><a class="dropdown-item" onclick="navigateTo('purchases')"><i class="fa-solid fa-receipt me-2"></i>Purchases</a></li>
+            <li><hr class="dropdown-divider"></li>
+            <li><a class="dropdown-item" onclick="navigateTo('login')"><i class="fa-solid fa-right-to-bracket me-2"></i>Login</a></li>
           </ul>
         </div>
       </div>
     </div>
   </div>
 </nav>
-<div class="scanline" style="top:auto;position:relative;"></div>
-
-<!-- MOBILE SEARCH -->
-<div id="mobileSearchBar" class="d-none px-3 py-2" style="background:var(--bg-panel);border-bottom:1px solid var(--line);position:relative;z-index:999;">
-  <input type="text" id="mobileSearchInput" class="form-control-nx w-100" placeholder="Search assets...">
-</div>
 
 <div class="page-content" id="pageContent">
 
-<!-- ================================================================
-     PAGE: HOME
-================================================================= -->
-<section class="page-view active" id="page-home">
-
-  <!-- HERO -->
-  <section class="position-relative overflow-hidden" style="padding:110px 0 90px;">
-    <div class="container-xl position-relative" style="z-index:5;">
-      <div class="row align-items-center g-5">
-        <div class="col-lg-6" data-aos="fade-right" data-aos-duration="900">
-          <div class="eyebrow"><i class="fa-solid fa-wand-magic-sparkles" style="font-size:.7rem;"></i> 12,400+ Editing Assets · Instant Download</div>
-          <h1 style="font-size:clamp(2.4rem,5vw,3.8rem);line-height:1.08;margin-bottom:22px;">
-            Edit like a<br><span class="grad" style="background:linear-gradient(90deg,var(--violet-2),var(--cyan));-webkit-background-clip:text;background-clip:text;color:transparent;">Cinema Studio.</span>
+  <!-- ==================== 1. HOME ==================== -->
+  <section class="page-view active" id="view-home">
+    <div class="container-xl pt-5">
+      <div class="row align-items-center g-5 py-4">
+        <div class="col-lg-6">
+          <div class="eyebrow"><i class="fa-solid fa-wand-magic-sparkles"></i> 12,400+ Editing Assets</div>
+          <h1 style="font-size:clamp(2.4rem, 4.5vw, 3.8rem);line-height:1.1;" class="mb-4">
+            Edit Like A <br><span class="grad">Cinema Studio.</span>
           </h1>
-          <p style="font-size:1.08rem;max-width:520px;margin-bottom:34px;">Premium After Effects templates, Alight Motion projects, LUTs, presets, transitions and VFX packs — trusted by 190,000+ editors, filmmakers and content creators worldwide.</p>
-          <div class="d-flex flex-wrap gap-3 mb-4">
-            <button class="btn-nx btn-primary-nx btn-lg" data-nav="store"><i class="fa-solid fa-compass"></i> Explore Marketplace</button>
-            <button class="btn-nx btn-glass-nx btn-lg" onclick="playDemo()"><i class="fa-solid fa-play"></i> Watch Showreel</button>
-          </div>
-          <div class="d-flex align-items-center gap-3">
-            <div class="d-flex">
-              <img src="https://i.pravatar.cc/60?img=12" class="rounded-circle border border-2" style="border-color:var(--bg-void)!important;width:38px;height:38px;margin-right:-12px;">
-              <img src="https://i.pravatar.cc/60?img=33" class="rounded-circle border border-2" style="border-color:var(--bg-void)!important;width:38px;height:38px;margin-right:-12px;">
-              <img src="https://i.pravatar.cc/60?img=47" class="rounded-circle border border-2" style="border-color:var(--bg-void)!important;width:38px;height:38px;margin-right:-12px;">
-              <div class="rounded-circle d-flex align-items-center justify-content-center font-mono" style="width:38px;height:38px;background:var(--violet);font-size:.65rem;border:2px solid var(--bg-void);">19K+</div>
-            </div>
-            <div class="font-mono" style="font-size:.78rem;color:var(--ink-dim);"><span style="color:var(--gold);">★★★★★</span> 4.9/5 from 8,200+ reviews</div>
+          <p class="fs-6 mb-4">Premium After Effects templates, Alight Motion projects, LUTs, presets, transitions and VFX packs — trusted by 190,000+ editors worldwide.</p>
+          <div class="d-flex flex-wrap gap-3">
+            <button class="btn-nx btn-primary-nx" onclick="navigateTo('store')"><i class="fa-solid fa-compass"></i> Explore Store</button>
+            <button class="btn-nx btn-glass-nx" onclick="navigateTo('bundles')"><i class="fa-solid fa-gift"></i> View Bundles</button>
           </div>
         </div>
+        <div class="col-lg-6">
+          <div class="glass-panel p-2 position-relative">
+            <img src="https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?q=80&w=900&auto=format&fit=crop" class="img-fluid rounded-4" alt="Hero">
+            <div class="scanline" style="top:40%;"></div>
+          </div>
+        </div>
+      </div>
 
-        <div class="col-lg-6 position-relative" data-aos="fade-left" data-aos-duration="900">
-          <div class="position-relative mx-auto" style="max-width:480px;">
-            <div class="glass-panel p-2" style="border-radius:22px;box-shadow:0 40px 100px -30px rgba(139,92,246,.5);">
-              <div class="position-relative" style="border-radius:16px;overflow:hidden;">
-                <img src="https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?q=80&w=900&auto=format&fit=crop" style="width:100%;aspect-ratio:4/3;object-fit:cover;">
-                <div class="scanline" style="top:40%;"></div>
-                <div class="position-absolute bottom-0 start-0 end-0 p-3" style="background:linear-gradient(0deg,rgba(0,0,0,.8),transparent);">
-                  <div class="d-flex align-items-center gap-2">
-                    <i class="fa-solid fa-circle-play" style="color:var(--cyan);font-size:1.4rem;"></i>
-                    <div class="font-mono" style="font-size:.72rem;color:#fff;">cinematic_grade_pack.aep</div>
-                  </div>
-                </div>
+      <!-- Categories Section -->
+      <div class="section-pad">
+        <div class="d-flex justify-content-between align-items-end mb-4">
+          <div>
+            <div class="eyebrow">Browse</div>
+            <h2 class="section-title">Shop by <span class="grad">Category</span></h2>
+          </div>
+          <button class="btn-nx btn-outline-nx" onclick="navigateTo('store')">View All</button>
+        </div>
+        <div class="row g-3" id="homeCategories"></div>
+      </div>
+
+      <!-- Featured Products -->
+      <div class="section-pad">
+        <div class="d-flex justify-content-between align-items-end mb-4">
+          <div>
+            <div class="eyebrow">Handpicked</div>
+            <h2 class="section-title">Featured <span class="grad">Assets</span></h2>
+          </div>
+        </div>
+        <div class="row g-4" id="homeFeatured"></div>
+      </div>
+
+      <!-- Statistics -->
+      <div class="section-pad">
+        <div class="glass-panel p-4 text-center">
+          <div class="row g-4">
+            <div class="col-6 col-md-3"><h2 class="grad fw-bold">12.4K+</h2><div class="text-muted fs-7 font-mono mt-1">ASSETS</div></div>
+            <div class="col-6 col-md-3"><h2 class="grad fw-bold">190K+</h2><div class="text-muted fs-7 font-mono mt-1">EDITORS</div></div>
+            <div class="col-6 col-md-3"><h2 class="grad fw-bold">540K+</h2><div class="text-muted fs-7 font-mono mt-1">DOWNLOADS</div></div>
+            <div class="col-6 col-md-3"><h2 class="grad fw-bold">4.9 ★</h2><div class="text-muted fs-7 font-mono mt-1">AVG RATING</div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== 2. STORE ==================== -->
+  <section class="page-view" id="view-store">
+    <div class="container-xl pt-4">
+      <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2>Digital Marketplace <span class="grad" id="storeCatTitle">All Products</span></h2>
+        <select class="form-control-nx w-auto" onchange="sortProducts(this.value)">
+          <option value="default">Sort by: Default</option>
+          <option value="price-low">Price: Low to High</option>
+          <option value="price-high">Price: High to Low</option>
+          <option value="rating">Highest Rated</option>
+        </select>
+      </div>
+      <div class="row g-4">
+        <!-- Sidebar Filters -->
+        <div class="col-lg-3">
+          <div class="glass-panel p-3">
+            <h6 class="mb-3 font-mono text-uppercase text-cyan"><i class="fa-solid fa-filter me-2"></i>Filters</h6>
+            <div class="mb-3">
+              <label class="form-label fs-7 text-muted">Category</label>
+              <select class="form-control-nx" id="filterCategory" onchange="filterProducts()">
+                <option value="all">All Categories</option>
+                <option value="After Effects">After Effects</option>
+                <option value="Alight Motion">Alight Motion</option>
+                <option value="Presets">Presets & Shakes</option>
+                <option value="LUTs">Color LUTs</option>
+                <option value="Sound Effects">Sound Effects</option>
+                <option value="Bundles">Bundles</option>
+                <option value="Free Downloads">Free Downloads</option>
+              </select>
+            </div>
+            <button class="btn-nx btn-glass-nx w-100 fs-7" onclick="resetFilters()">Reset Filters</button>
+          </div>
+        </div>
+        <!-- Product Grid -->
+        <div class="col-lg-9">
+          <div class="row g-4" id="storeGrid"></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== 3. PRODUCT DETAILS ==================== -->
+  <section class="page-view" id="view-product-details">
+    <div class="container-xl pt-4" id="productDetailContainer"></div>
+  </section>
+
+  <!-- ==================== 4. CART ==================== -->
+  <section class="page-view" id="view-cart">
+    <div class="container-xl pt-4">
+      <h2 class="mb-4">Shopping <span class="grad">Cart</span></h2>
+      <div class="row g-4">
+        <div class="col-lg-8">
+          <div class="glass-panel p-3">
+            <div class="table-responsive">
+              <table class="table table-dark align-middle cart-table bg-transparent">
+                <thead><tr><th>Product</th><th>Price</th><th>Action</th></tr></thead>
+                <tbody id="cartTableBody"></tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+        <div class="col-lg-4">
+          <div class="glass-panel p-4">
+            <h5 class="mb-3">Order Summary</h5>
+            <div class="d-flex justify-content-between mb-2"><span>Subtotal</span><span id="cartSubtotal">$0</span></div>
+            <div class="d-flex justify-content-between mb-2"><span>Discount</span><span class="text-success" id="cartDiscount">-$0</span></div>
+            <hr class="border-secondary">
+            <div class="d-flex justify-content-between fs-5 fw-bold mb-3"><span>Total</span><span class="text-cyan" id="cartTotal">$0</span></div>
+            <div class="input-group mb-3">
+              <input type="text" class="form-control-nx" id="couponCode" placeholder="Coupon Code (TRY: NEXORA20)">
+              <button class="btn-nx btn-glass-nx" onclick="applyCoupon()">Apply</button>
+            </div>
+            <button class="btn-nx btn-primary-nx w-100" onclick="navigateTo('checkout')">Proceed to Checkout</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== 5. CHECKOUT ==================== -->
+  <section class="page-view" id="view-checkout">
+    <div class="container-xl pt-4">
+      <div class="row g-4 justify-content-center">
+        <div class="col-lg-6">
+          <div class="glass-panel p-4">
+            <h4 class="mb-3">Checkout Details</h4>
+            <form onsubmit="handleCheckout(event)">
+              <div class="mb-3"><label class="form-label fs-7">Full Name</label><input type="text" class="form-control-nx" required placeholder="John Doe"></div>
+              <div class="mb-3"><label class="form-label fs-7">Email Address</label><input type="email" class="form-control-nx" required placeholder="john@example.com"></div>
+              <div class="mb-3"><label class="form-label fs-7">Card Number</label><input type="text" class="form-control-nx" required placeholder="4242 •••• •••• 4242"></div>
+              <div class="row g-2 mb-3">
+                <div class="col-6"><input type="text" class="form-control-nx" required placeholder="MM/YY"></div>
+                <div class="col-6"><input type="text" class="form-control-nx" required placeholder="CVC"></div>
               </div>
+              <button type="submit" class="btn-nx btn-primary-nx w-100 mt-2">Pay & Download Now</button>
+            </form>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== 6. WISHLIST ==================== -->
+  <section class="page-view" id="view-wishlist">
+    <div class="container-xl pt-4">
+      <h2 class="mb-4">Your <span class="grad">Wishlist</span></h2>
+      <div class="row g-4" id="wishlistGrid"></div>
+    </div>
+  </section>
+
+  <!-- ==================== 7. LOGIN & REGISTER ==================== -->
+  <section class="page-view" id="view-login">
+    <div class="container-xl pt-5">
+      <div class="glass-panel p-4 mx-auto" style="max-width:400px;">
+        <h4 class="text-center mb-4">Account Login</h4>
+        <div class="mb-3"><label class="form-label fs-7">Email</label><input type="email" class="form-control-nx" placeholder="editor@nexora.com"></div>
+        <div class="mb-3"><label class="form-label fs-7">Password</label><input type="password" class="form-control-nx" placeholder="••••••••"></div>
+        <button class="btn-nx btn-primary-nx w-100" onclick="showToast('Logged in successfully!'); navigateTo('dashboard');">Login</button>
+        <p class="text-center fs-7 mt-3 text-muted">Don't have an account? <a onclick="navigateTo('register')" class="text-cyan cursor-pointer">Register</a></p>
+      </div>
+    </div>
+  </section>
+
+  <section class="page-view" id="view-register">
+    <div class="container-xl pt-5">
+      <div class="glass-panel p-4 mx-auto" style="max-width:400px;">
+        <h4 class="text-center mb-4">Create Account</h4>
+        <div class="mb-3"><label class="form-label fs-7">Username</label><input type="text" class="form-control-nx" placeholder="VFX_Master"></div>
+        <div class="mb-3"><label class="form-label fs-7">Email</label><input type="email" class="form-control-nx" placeholder="editor@nexora.com"></div>
+        <div class="mb-3"><label class="form-label fs-7">Password</label><input type="password" class="form-control-nx" placeholder="••••••••"></div>
+        <button class="btn-nx btn-primary-nx w-100" onclick="showToast('Account created successfully!'); navigateTo('dashboard');">Register</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== 8. DASHBOARD / DOWNLOADS / PURCHASES / PROFILE ==================== -->
+  <section class="page-view" id="view-dashboard">
+    <div class="container-xl pt-4">
+      <h2>User <span class="grad">Dashboard</span></h2>
+      <div class="row g-4 mt-2">
+        <div class="col-md-4">
+          <div class="glass-panel p-3">
+            <h5>Welcome, Editor!</h5>
+            <p class="fs-7 text-muted">Manage your downloads, purchases, and active membership.</p>
+            <hr class="border-secondary">
+            <button class="btn-nx btn-glass-nx w-100 mb-2" onclick="navigateTo('downloads')"><i class="fa-solid fa-download me-2"></i> My Downloads</button>
+            <button class="btn-nx btn-glass-nx w-100 mb-2" onclick="navigateTo('purchases')"><i class="fa-solid fa-receipt me-2"></i> Purchase History</button>
+            <button class="btn-nx btn-glass-nx w-100" onclick="navigateTo('profile')"><i class="fa-solid fa-user me-2"></i> Profile Settings</button>
+          </div>
+        </div>
+        <div class="col-md-8">
+          <div class="glass-panel p-4">
+            <h5>Quick Stats</h5>
+            <div class="row g-3 mt-1 text-center">
+              <div class="col-4"><div class="p-3 bg-dark rounded-3"><h3>14</h3><span class="fs-7 text-muted">Downloads</span></div></div>
+              <div class="col-4"><div class="p-3 bg-dark rounded-3"><h3>3</h3><span class="fs-7 text-muted">Purchases</span></div></div>
+              <div class="col-4"><div class="p-3 bg-dark rounded-3"><h3>VIP</h3><span class="fs-7 text-cyan">Status</span></div></div>
             </div>
-            <div class="float-card" style="top:-8%;left:-12%;" data-aos="fade-down" data-aos-delay="300">
-              <div class="d-flex align-items-center gap-2">
-                <div class="rounded-circle d-flex align-items-center justify-content-center" style="width:34px;height:34px;background:rgba(51,227,154,.2);"><i class="fa-solid fa-check" style="color:var(--green);font-size:.75rem;"></i></div>
-                <div><div style="font-size:.78rem;font-weight:600;">Instant Delivery</div><div class="font-mono" style="font-size:.65rem;color:var(--ink-dimmer);">Zero wait time</div></div>
-              </div>
-            </div>
-            <div class="float-card" style="bottom:6%;right:-10%;animation-delay:1.4s;" data-aos="fade-up" data-aos-delay="500">
-              <div class="d-flex align-items-center gap-2">
-                <i class="fa-solid fa-layer-group" style="color:var(--violet-2);"></i>
-                <div><div style="font-size:.78rem;font-weight:600;">4,800+ Layers</div><div class="font-mono" style="font-size:.65rem;color:var(--ink-dimmer);">Fully organized</div></div>
-              </div>
-            </div>
-            <div class="float-card" style="bottom:-10%;left:8%;animation-delay:2.2s;" data-aos="fade-up" data-aos-delay="700">
-              <div class="d-flex align-items-center gap-3">
-                <i class="fa-solid fa-star" style="color:var(--gold);"></i>
-                <div><div style="font-size:.78rem;font-weight:600;">4.9 Rating</div><div class="font-mono" style="font-size:.65rem;color:var(--ink-dimmer);">2,341 sales</div></div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div>
-
-      <!-- trust strip -->
-      <div class="row g-3 mt-5 pt-4" data-aos="fade-up">
-        <div class="col-6 col-md-3"><div class="trust-badge"><i class="fa-solid fa-shield-halved"></i><div><div style="font-size:.82rem;font-weight:600;">Secure Checkout</div><div style="font-size:.7rem;color:var(--ink-dimmer);">256-bit SSL</div></div></div></div>
-        <div class="col-6 col-md-3"><div class="trust-badge"><i class="fa-solid fa-bolt"></i><div><div style="font-size:.82rem;font-weight:600;">Instant Access</div><div style="font-size:.7rem;color:var(--ink-dimmer);">Download now</div></div></div></div>
-        <div class="col-6 col-md-3"><div class="trust-badge"><i class="fa-solid fa-rotate-left"></i><div><div style="font-size:.82rem;font-weight:600;">Refund Policy</div><div style="font-size:.7rem;color:var(--ink-dimmer);">14-day guarantee</div></div></div></div>
-        <div class="col-6 col-md-3"><div class="trust-badge"><i class="fa-solid fa-headset"></i><div><div style="font-size:.82rem;font-weight:600;">24/7 Support</div><div style="font-size:.7rem;color:var(--ink-dimmer);">Real humans</div></div></div></div>
-      </div>
-    </div>
-  </section>
-
-  <div class="divider-scan"><div class="dot"></div></div>
-
-  <!-- CATEGORIES -->
-  <section class="section-pad">
-    <div class="container-xl">
-      <div class="d-flex flex-wrap justify-content-between align-items-end mb-5" data-aos="fade-up">
-        <div>
-          <div class="eyebrow">Browse</div>
-          <h2 class="section-title">Shop by <span class="grad">Category</span></h2>
-          <p class="section-sub">21 categories of professional editing resources, curated for creators.</p>
-        </div>
-        <button class="btn-nx btn-outline-nx d-none d-md-inline-flex" data-nav="store">View All <i class="fa-solid fa-arrow-right"></i></button>
-      </div>
-      <div class="row g-3" id="categoryGrid"></div>
-    </div>
-  </section>
-
-  <div class="divider-scan"><div class="dot"></div></div>
-
-  <!-- FEATURED PRODUCTS -->
-  <section class="section-pad">
-    <div class="container-xl">
-      <div class="d-flex flex-wrap justify-content-between align-items-end mb-5" data-aos="fade-up">
-        <div>
-          <div class="eyebrow">Handpicked</div>
-          <h2 class="section-title">Featured <span class="grad">Products</span></h2>
-          <p class="section-sub">Editor's choice — the highest quality assets on NEXORA right now.</p>
-        </div>
-        <button class="btn-nx btn-outline-nx d-none d-md-inline-flex" data-nav="store">Browse Store <i class="fa-solid fa-arrow-right"></i></button>
-      </div>
-      <div class="row g-4" id="featuredGrid"></div>
-    </div>
-  </section>
-
-  <div class="divider-scan"><div class="dot"></div></div>
-
-  <!-- TRENDING (Swiper) -->
-  <section class="section-pad">
-    <div class="container-xl">
-      <div class="d-flex flex-wrap justify-content-between align-items-end mb-5" data-aos="fade-up">
-        <div>
-          <div class="eyebrow"><i class="fa-solid fa-fire" style="font-size:.7rem;"></i> Hot Right Now</div>
-          <h2 class="section-title">Trending <span class="grad">This Week</span></h2>
-        </div>
-        <div class="d-none d-md-flex gap-2">
-          <button class="btn-icon-round" id="trendPrev"><i class="fa-solid fa-arrow-left"></i></button>
-          <button class="btn-icon-round" id="trendNext"><i class="fa-solid fa-arrow-right"></i></button>
-        </div>
-      </div>
-      <div class="swiper" id="trendingSwiper">
-        <div class="swiper-wrapper" id="trendingWrapper" style="padding-bottom:6px;"></div>
-      </div>
-    </div>
-  </section>
-
-  <div class="divider-scan"><div class="dot"></div></div>
-
-  <!-- BEST SELLERS -->
-  <section class="section-pad">
-    <div class="container-xl">
-      <div class="d-flex flex-wrap justify-content-between align-items-end mb-5" data-aos="fade-up">
-        <div>
-          <div class="eyebrow"><i class="fa-solid fa-crown" style="font-size:.7rem;"></i> Top Rated</div>
-          <h2 class="section-title">Best <span class="grad">Sellers</span></h2>
-        </div>
-      </div>
-      <div class="row g-4" id="bestsellerGrid"></div>
-    </div>
-  </section>
-
-  <div class="divider-scan"><div class="dot"></div></div>
-
-  <!-- LATEST UPLOADS -->
-  <section class="section-pad">
-    <div class="container-xl">
-      <div class="d-flex flex-wrap justify-content-between align-items-end mb-5" data-aos="fade-up">
-        <div>
-          <div class="eyebrow">Fresh</div>
-          <h2 class="section-title">Latest <span class="grad">Uploads</span></h2>
-        </div>
-      </div>
-      <div class="row g-4" id="latestGrid"></div>
-    </div>
-  </section>
-
-  <div class="divider-scan"><div class="dot"></div></div>
-
-  <!-- PREMIUM BUNDLES -->
-  <section class="section-pad">
-    <div class="container-xl">
-      <div class="text-center mb-5" data-aos="fade-up">
-        <div class="eyebrow mx-auto" style="display:inline-flex;"><i class="fa-solid fa-gift" style="font-size:.7rem;"></i> Save up to 60%</div>
-        <h2 class="section-title">Premium <span class="grad">Bundles</span></h2>
-        <p class="section-sub mx-auto">All-in-one asset packs engineered for full production workflows.</p>
-      </div>
-      <div class="row g-4" id="bundleGrid"></div>
-    </div>
-  </section>
-
-  <div class="divider-scan"><div class="dot"></div></div>
-
-  <!-- STATISTICS -->
-  <section class="section-pad">
-    <div class="container-xl">
-      <div class="glass-panel p-4 p-md-5" data-aos="zoom-in">
-        <div class="row">
-          <div class="col-6 col-md-3 stat-box">
-            <div class="stat-num counter" data-target="12400">0</div>
-            <div class="stat-label">Digital Assets</div>
-          </div>
-          <div class="col-6 col-md-3 stat-box">
-            <div class="stat-num counter" data-target="190000">0</div>
-            <div class="stat-label">Active Creators</div>
-          </div>
-          <div class="col-6 col-md-3 stat-box">
-            <div class="stat-num counter" data-target="540000">0</div>
-            <div class="stat-label">Downloads</div>
-          </div>
-          <div class="col-6 col-md-3 stat-box">
-            <div class="stat-num"><span class="counter" data-target="49" data-decimal="1">0</span></div>
-            <div class="stat-label">Avg Rating / 5</div>
           </div>
         </div>
       </div>
     </div>
   </section>
 
-  <div class="divider-scan"><div class="dot"></div></div>
-
-  <!-- CUSTOMER REVIEWS -->
-  <section class="section-pad">
-    <div class="container-xl">
-      <div class="text-center mb-5" data-aos="fade-up">
-        <div class="eyebrow mx-auto" style="display:inline-flex;">Testimonials</div>
-        <h2 class="section-title">Loved by <span class="grad">Creators</span></h2>
-      </div>
-      <div class="swiper" id="reviewSwiper">
-        <div class="swiper-wrapper" id="reviewWrapper"></div>
-        <div class="swiper-pagination mt-4 position-relative"></div>
-      </div>
-    </div>
-  </section>
-
-  <div class="divider-scan"><div class="dot"></div></div>
-
-  <!-- NEWSLETTER -->
-  <section class="section-pad">
-    <div class="container-xl">
-      <div class="newsletter-box" data-aos="zoom-in">
-        <div style="position:relative;z-index:2;">
-          <i class="fa-solid fa-paper-plane mb-3" style="font-size:1.8rem;color:var(--cyan);"></i>
-          <h2 class="section-title">Get New Assets in Your Inbox</h2>
-          <p class="section-sub mx-auto mb-4">Join 84,000+ editors receiving weekly drops, discount codes, and free templates.</p>
-          <form class="d-flex flex-column flex-sm-row gap-3 justify-content-center mx-auto" style="max-width:480px;" onsubmit="subscribeNewsletter(event)">
-            <input type="email" required class="form-control-nx flex-grow-1" placeholder="you@email.com">
-            <button type="submit" class="btn-nx btn-primary-nx">Subscribe</button>
-          </form>
-          <p style="font-size:.75rem;color:var(--ink-dimmer);margin-top:14px;">No spam. Unsubscribe anytime.</p>
+  <section class="page-view" id="view-downloads">
+    <div class="container-xl pt-4">
+      <h2 class="mb-3">My <span class="grad">Downloads</span></h2>
+      <div class="glass-panel p-3">
+        <div class="d-flex justify-content-between align-items-center border-bottom border-secondary pb-2 mb-2">
+          <div><strong>Cinematic 3D Shake Pack Pro</strong><br><span class="fs-7 text-muted">After Effects</span></div>
+          <button class="btn-nx btn-primary-nx fs-7" onclick="showToast('Downloading asset...')"><i class="fa-solid fa-download me-1"></i> Download .ZIP</button>
+        </div>
+        <div class="d-flex justify-content-between align-items-center">
+          <div><strong>Cyberpunk Sound FX Collection</strong><br><span class="fs-7 text-muted">Audio / SFX</span></div>
+          <button class="btn-nx btn-primary-nx fs-7" onclick="showToast('Downloading asset...')"><i class="fa-solid fa-download me-1"></i> Download .ZIP</button>
         </div>
       </div>
     </div>
   </section>
 
-  <div class="divider-scan"><div class="dot"></div></div>
+  <section class="page-view" id="view-purchases">
+    <div class="container-xl pt-4">
+      <h2 class="mb-3">Purchase <span class="grad">History</span></h2>
+      <div class="glass-panel p-3">
+        <table class="table table-dark fs-7 bg-transparent">
+          <thead><tr><th>Order ID</th><th>Date</th><th>Amount</th><th>Status</th></tr></thead>
+          <tbody>
+            <tr><td>#NX-9982</td><td>July 2026</td><td>$19.00</td><span class="badge bg-success">Completed</span></td></tr>
+            <tr><td>#NX-8821</td><td>June 2026</td><td>$24.00</td><span class="badge bg-success">Completed</span></td></tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </section>
 
-  <!-- FAQ -->
-  <sect
+  <section class="page-view" id="view-profile">
+    <div class="container-xl pt-4">
+      <div class="glass-panel p-4 mx-auto" style="max-width:500px;">
+        <h4>Edit Profile</h4>
+        <div class="mb-3"><label class="form-label fs-7">Display Name</label><input type="text" class="form-control-nx" value="VORTX Editor"></div>
+        <div class="mb-3"><label class="form-label fs-7">Email</label><input type="email" class="form-control-nx" value="vortx@editor.com"></div>
+        <button class="btn-nx btn-primary-nx" onclick="showToast('Profile updated!')">Save Changes</button>
+      </div>
+    </div>
+  </section>
+
+  <!-- ==================== 9. SUPPORT / CONTACT / ABOUT / LEGAL / 404 ==================== -->
+  <section class="page-view" id="view-support">
+    <div class="container-xl pt-4">
+      <h2>Customer <span class="grad">Support</span></h2>
+      <p>Need help with your project files? Our support team is active 24/7.</p>
+      <div class="glass-panel p-4" style="max-width:600px;">
+        <div class="mb-3"><label class="form-label fs-7">Ticket Subject</label><input type="text" class="form-control-nx" placeholder="Issue with XML file"></div>
+        <div class="mb-3"><label class="form-label fs-7">Message</label><textarea class="form-control-nx" rows="4" placeholder="Explain your issue..."></textarea></div>
+        <button class="btn-nx btn-primary-nx" onclick="showToast('Support ticket sent!');">Submit Ticket</button>
+      </div>
+    </div>
+  </section>
+
+  <section class="page-view" id="view-about">
+    <div class="container-xl pt-4">
+      <h2>About <span class="grad">NEXORA</span></h2>
+      <p class="mt-3 fs-6" style="max-width:700px;">NEXORA is a next-generation digital marketplace crafted for video editors, motion graphics artists, and content creators. We provide studio-quality templates, project files, sound effects, and color grading LUTs to level up your video production in seconds.</p>
+    </div>
+  </section>
+
+  <section class="page-view" id="view-404">
+    <div class="container-xl pt-5 text-center">
+      <h1 class="display-1 grad font-mono">404</h1>
+      <h3>Page Not Found</h3>
+      <p class="text-muted">The requested page does not exist or has been moved.</p>
+      <button class="btn-nx btn-primary-nx mt-3" onclick="navigateTo('home')">Back to Home</button>
+    </div>
+  </section>
+
+</div>
+
+<!-- Footer -->
+<footer class="footer-nx">
+  <div class="container-xl">
+    <div class="row g-4 mb-4">
+      <div class="col-lg-4">
+        <a class="brand mb-2" onclick="navigateTo('home')">
+          <span class="brand-mark">N</span>
+          <span class="brand-text">NEXORA</span>
+        </a>
+        <p class="fs-7">Premium digital editing assets crafted for top creators and filmmakers.</p>
+      </div>
+      <div class="col-6 col-lg-2">
+        <h6 class="font-mono text-cyan mb-3">MARKETPLACE</h6>
+        <a class="footer-link" onclick="navigateTo('store', {cat:'After Effects'})">After Effects</a>
+        <a class="footer-link" onclick="navigateTo('store', {cat:'Alight Motion'})">Alight Motion</a>
+        <a class="footer-link" onclick="navigateTo('store', {cat:'Presets'})">Presets & Shakes</a>
+        <a class="footer-link" onclick="navigateTo('store', {cat:'LUTs'})">Color LUTs</a>
+      </div>
+      <div class="col-6 col-lg-2">
+        <h6 class="font-mono text-cyan mb-3">PAGES</h6>
+        <a class="footer-link" onclick="navigateTo('about')">About Us</a>
+        <a class="footer-link" onclick="navigateTo('bundles')">Bundles</a>
+        <a class="footer-link" onclick="navigateTo('support')">Support</a>
+        <a class="footer-link" onclick="navigateTo('login')">Login</a>
+      </div>
+      <div class="col-lg-4">
+        <h6 class="font-mono text-cyan mb-3">NEWSLETTER</h6>
+        <p class="fs-7">Get weekly free templates and LUT drops in your inbox.</p>
+        <div class="d-flex gap-2">
+          <input type="email" class="form-control-nx" placeholder="you@domain.com">
+          <button class="btn-nx btn-primary-nx fs-7" onclick="showToast('Subscribed successfully!')">Join</button>
+        </div>
+      </div>
+    </div>
+    <div class="border-top border-secondary pt-3 d-flex justify-content-between fs-7 text-muted">
+      <span>© 2026 NEXORA Inc. All rights reserved.</span>
+      <span>Designed for Pro Editors</span>
+    </div>
+  </div>
+</footer>
+
+<!-- Scripts -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.3/js/bootstrap.bundle.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/aos/2.3.1/aos.js"></script>
+
+<script>
+// Mock Products Database
+const products = [
+  { id: 1, title: 'Cinematic 3D Shake Pack Pro', cat: 'After Effects', price: 19, oldPrice: 35, rating: 4.9, sales: '1.2k', badge: 'hot', img: 'https://images.unsplash.com/photo-1574717024653-61fd2cf4d44d?q=80&w=600&auto=format&fit=crop', desc: 'Smooth 3D null shakes, velocity graphs, and impact overlays ready for AE 2026.' },
+  { id: 2, title: 'Anime Flow & Smooth CC Project', cat: 'Alight Motion', price: 12, oldPrice: 20, rating: 5.0, sales: '890', badge: 'new', img: 'https://images.unsplash.com/photo-1618005182384-a83a8bd57fbe?q=80&w=600&auto=format&fit=crop', desc: 'Clean XML project file with smooth transitions and color corrections for mobile editors.' },
+  { id: 3, title: 'Cyberpunk Sound FX Collection', cat: 'Sound Effects', price: 0, oldPrice: 15, rating: 4.8, sales: '3.4k', badge: 'free', img: 'https://images.unsplash.com/photo-1598488035139-bdbb2231ce04?q=80&w=600&auto=format&fit=crop', desc: '250+ Futuristic risers, impacts, whooshes, and metallic bass drops.' },
+  { id: 4, title: 'Hollywood LUTs Master Suite', cat: 'LUTs', price: 24, oldPrice: 45, rating: 4.9, sales: '2.1k', badge: 'sale', img: 'https://images.unsplash.com/photo-1536240478700-b869070f9279?q=80&w=600&auto=format&fit=crop', desc: 'Pro Grade .cube LUTs compatible with Premiere, AE, CapCut, and Davinci.' },
+  { id: 5, title: 'Ultra Velocity Shake & Blur Pack', cat: 'Presets', price: 15, oldPrice: 25, rating: 4.7, sales: '640', badge: 'hot', img: 'https://images.unsplash.com/photo-1550745165-9bc0b252726f?q=80&w=600&auto=format&fit=crop', desc: 'Instant drag-and-drop preset files for hyper-smooth edit syncs.' },
+  { id: 6, title: 'ALL-IN-ONE Creator Super Bundle', cat: 'Bundles', price: 49, oldPrice: 120, rating: 5.0, sales: '4.1k', badge: 'sale', img: 'https://images.unsplash.com/photo-1518770660439-4636190af475?q=80&w=600&auto=format&fit=crop', desc: 'Includes all AE presets, AM XMLs, LUTs, and SFX in one massive pack.' }
+];
+
+const categories = [
+  { name: 'After Effects', icon: 'fa-clapperboard' },
+  { name: 'Alight Motion', icon: 'fa-mobile-screen' },
+  { name: 'Presets', icon: 'fa-sliders' },
+  { name: 'LUTs', icon: 'fa-palette' },
+  { name: 'Sound Effects', icon: 'fa-volume-high' },
+  { name: 'Bundles', icon: 'fa-gift' }
+];
+
+// App State
+let cart = [];
+let wishlist = [];
+let discountRate = 0;
+
+// SPA Navigation System
+function navigateTo(viewId, params = {}) {
+  document.querySelectorAll('.page-view').forEach(v => v.classList.remove('active'));
+  const targetView = document.getElementById(`view-${viewId}`) || document.getElementById('view-404');
+  targetView.classList.add('active');
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+
+  // Handle Params / Specific Page Actions
+  if (viewId === 'store') {
+    if (params.cat) {
+      document.getElementById('filterCategory').value = params.cat;
+      filterProducts();
+    } else {
+      renderStoreGrid(products);
+    }
+  } else if (viewId === 'product-details' && params.id) {
+    renderProductDetails(params.id);
+  } else if (viewId === 'bundles') {
+    navigateTo('store', { cat: 'Bundles' });
+  }
+}
+
+// Render Functions
+function renderCardHTML(p) {
+  const isWish = wishlist.includes(p.id);
+  return `
+    <div class="col-12 col-sm-6 col-lg-4">
+      <div class="pcard">
+        <div class="pcard-media">
+          <img src="${p.img}" alt="${p.title}">
+          <span class="pcard-badge badge-${p.badge}">${p.badge}</span>
+          <button class="pcard-fav ${isWish ? 'active' : ''}" onclick="toggleWishlist(${p.id})"><i class="fa-${isWish ? 'solid' : 'regular'} fa-heart"></i></button>
+        </div>
+        <div class="pcard-body">
+          <div class="pcard-cat">${p.cat}</div>
+          <div class="pcard-title" onclick="navigateTo('product-details', {id:${p.id}})">${p.title}</div>
+          <div class="pcard-foot">
+            <div class="pcard-price">${p.price === 0 ? '<span class="text-success">Free</span>' : `$${p.price} ${p.oldPrice ? `<span class="old">$${p.oldPrice}</span>` : ''}`}</div>
+            <button class="pcard-cart-btn" onclick="addToCart(${p.id})"><i class="fa-solid fa-bag-shopping"></i></button>
+          </div>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+function renderStoreGrid(list) {
+  const grid = document.getElementById('storeGrid');
+  if (grid) grid.innerHTML = list.map(renderCardHTML).join('');
+}
+
+function renderProductDetails(id) {
+  const p = products.find(x => x.id === id);
+  if (!p) return;
+  const container = document.getElementById('productDetailContainer');
+  container.innerHTML = `
+    <div class="row g-4">
+      <div class="col-lg-7">
+        <div class="glass-panel p-2">
+          <img src="${p.img}" class="img-fluid rounded-4 w-100" alt="${p.title}">
+        </div>
+      </div>
+      <div class="col-lg-5">
+        <div class="glass-panel p-4">
+          <div class="eyebrow">${p.cat}</div>
+          <h2>${p.title}</h2>
+          <div class="text-warning mb-2">★★★★★ <span class="text-muted fs-7">(${p.sales} sales)</span></div>
+          <h3 class="text-cyan mb-3">${p.price === 0 ? 'Free' : '$' + p.price}</h3>
+          <p class="fs-7">${p.desc}</p>
+          <hr class="border-secondary">
+          <div class="d-flex gap-2">
+            <button class="btn-nx btn-primary-nx flex-grow-1" onclick="addToCart(${p.id})"><i class="fa-solid fa-cart-plus"></i> Add To Cart</button>
+            <button class="btn-nx btn-glass-nx" onclick="toggleWishlist(${p.id})"><i class="fa-regular fa-heart"></i></button>
+          </div>
+        </div>
+      </div>
+    </div>
+  `;
+}
+
+// Filters & Sorting
+function filterProducts() {
+  const cat = document.getElementById('filterCategory').value;
+  let filtered = cat === 'all' ? products : products.filter(p => p.cat === cat || (cat === 'Free Downloads' && p.price === 0));
+  renderStoreGrid(filtered);
+}
+
+function sortProducts(val) {
+  let sorted = [...products];
+  if (val === 'price-low') sorted.sort((a,b) => a.price - b.price);
+  if (val === 'price-high') sorted.sort((a,b) => b.price - a.price);
+  if (val === 'rating') sorted.sort((a,b) => b.rating - a.rating);
+  renderStoreGrid(sorted);
+}
+
+function resetFilters() {
+  document.getElementById('filterCategory').value = 'all';
+  renderStoreGrid(products);
+}
+
+function handleSearch(q) {
+  if (!q.trim()) return;
+  navigateTo('store');
+  const matched = products.filter(p => p.title.toLowerCase().includes(q.toLowerCase()) || p.cat.toLowerCase().includes(q.toLowerCase()));
+  renderStoreGrid(matched);
+}
+
+// Cart & Wishlist Logic
+function addToCart(id) {
+  const item = products.find(p => p.id === id);
+  if (item && !cart.some(c => c.id === id)) {
+    cart.push(item);
+    updateCartUI();
+    showToast(`Added "${item.title}" to Cart!`);
+  } else {
+    showToast('Item is already in cart!');
+  }
+}
+
+function removeFromCart(id) {
+  cart = cart.filter(c => c.id !== id);
+  updateCartUI();
+}
+
+function updateCartUI() {
+  document.getElementById('cartCount').innerText = cart.length;
+  const tbody = document.getElementById('cartTableBody');
+  if (tbody) {
+    tbody.innerHTML = cart.map(item => `
+      <tr>
+        <td class="d-flex align-items-center gap-2"><img src="${item.img}"> <span>${item.title}</span></td>
+        <td>$${item.price}</td>
+        <td><button class="btn btn-sm btn-outline-danger" onclick="removeFromCart(${item.id})"><i class="fa-solid fa-trash"></i></button></td>
+      </tr>
+    `).join('');
+  }
+
+  const subtotal = cart.reduce((sum, item) => sum + item.price, 0);
+  const discount = subtotal * discountRate;
+  const total = subtotal - discount;
+
+  document.getElementById('cartSubtotal').innerText = `$${subtotal.toFixed(2)}`;
+  document.getElementById('cartDiscount').innerText = `-$${discount.toFixed(2)}`;
+  document.getElementById('cartTotal').innerText = `$${total.toFixed(2)}`;
+}
+
+function applyCoupon() {
+  const code = document.getElementById('couponCode').value.trim();
+  if (code.toUpperCase() === 'NEXORA20') {
+    discountRate = 0.2;
+    updateCartUI();
+    showToast('20% Discount Applied!');
+  } else {
+    showToast('Invalid Coupon Code');
+  }
+}
+
+function toggleWishlist(id) {
+  if (wishlist.includes(id)) {
+    wishlist = wishlist.filter(x => x !== id);
+    showToast('Removed from Wishlist');
+  } else {
+    wishlist.push(id);
+    showToast('Added to Wishlist!');
+  }
+  document.getElementById('wishCount').innerText = wishlist.length;
+  const wishGrid = document.getElementById('wishlistGrid');
+  if (wishGrid) {
+    const list = products.filter(p => wishlist.includes(p.id));
+    wishGrid.innerHTML = list.map(renderCardHTML).join('');
+  }
+}
+
+function handleCheckout(e) {
+  e.preventDefault();
+  cart = [];
+  updateCartUI();
+  showToast('Payment successful! Redirecting to downloads...');
+  navigateTo('downloads');
+}
+
+// Toast Helper
+function showToast(msg) {
+  const wrap = document.getElementById('toastWrap');
+  const toast = document.createElement('div');
+  toast.className = 'nx-toast';
+  toast.innerHTML = `<i class="fa-solid fa-circle-check text-cyan"></i> <span>${msg}</span>`;
+  wrap.appendChild(toast);
+  setTimeout(() => toast.remove(), 3000);
+}
+
+// Initializer
+window.addEventListener('load', () => {
+  let pct = 0;
+  const timer = setInterval(() => {
+    pct += 20;
+    document.getElementById('loaderPct').innerText = `LOADING ASSETS — ${pct}%`;
+    if (pct >= 100) {
+      clearInterval(timer);
+      document.getElementById('loader').classList.add('hide');
+    }
+  }, 100);
+
+  // Render Home Data
+  const homeCats = document.getElementById('homeCategories');
+  if (homeCats) {
+    homeCats.innerHTML = categories.map(c => `
+      <div class="col-6 col-md-4 col-lg-2">
+        <div class="cat-card" onclick="navigateTo('store', {cat:'${c.name}'})">
+          <div class="cat-icon"><i class="fa-solid ${c.icon}"></i></div>
+          <div class="fw-semibold fs-7">${c.name}</div>
+        </div>
+      </div>
+    `).join('');
+  }
+
+  const homeFeat = document.getElementById('homeFeatured');
+  if (homeFeat) homeFeat.innerHTML = products.slice(0, 3).map(renderCardHTML).join('');
+
+  // Mouse Glow
+  window.addEventListener('mousemove', e => {
+    const glow = document.getElementById('cursorGlow');
+    if (glow) {
+      glow.style.left = e.clientX + 'px';
+      glow.style.top = e.clientY + 'px';
+    }
+  });
+});
+</script>
+</body>
+</html>
